@@ -1,11 +1,6 @@
-
 package modaujava;
-
-import java.util.Scanner;
-    
-
+import java.util.Scanner; 
 public class BaiTH2Bai3 {
-
      public static int soNgayTrongThang(int m, int y) {
         switch (m) {
             case 1: case 3: case 5: case 7: case 8: case 10: case 12:
