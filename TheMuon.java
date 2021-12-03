@@ -55,6 +55,7 @@ public class TheMuon extends SinhVien{
         this.setHoTen(ip.nextLine());
         System.out.print("Nhap nam sinh: ");
         this.setNamSinh(ip.nextInt());
+        this.setTuoi();
         System.out.print("Nhap ten lop: ");
         this.setLop(ip.nextLine());
         System.out.print("Nhap so phieu muon: ");
