@@ -1,13 +1,13 @@
--- File: custom_command_script.nse
--- Description: NSE script to execute custom command on the target machine
+-- File: system_info_script_short.nse
+-- Description: Shortened NSE script to gather system information from the target machine
 
--- Categories: intrusive, safe
+-- Categories: discovery, safe
 
 -- Prerequisites:
 -- - This script requires the `stdnse` library to be loaded.
 
 -- Usage:
--- nmap --script custom_command_script --script-args command=<command_to_execute> <target>
+-- nmap --script system_info_script_short <target>
 
 -- Version: 1.0
 
@@ -22,23 +22,25 @@ dependency = { "target", "port"}
 
 -- Set the description
 description = [[
-This script executes a custom command on the target machine.
+This script gathers system information from the target machine.
 ]]
 
 -- Set the categories
-categories = {"intrusive", "safe"}
+categories = {"discovery", "safe"}
 
 -- The action function is the entry point for script execution
 action = function(host, port)
 
-  -- Retrieve the command from script arguments
-  local command = stdnse.get_script_args('command')
+  -- Run commands to gather system information
+  local commands = {
+    "uname -a", -- Get kernel version
+    "whoami" -- Get distribution information (if available)
+  }
 
-  -- Execute the command
-  local handle = io.popen(command)
-  local result = handle:read("*a")
-  handle:close()
-
-  -- Print out the result
-  stdnse.print_debug("Command: " .. command .. "\nResult:\n" .. result)
+  for _, command in ipairs(commands) do
+    local handle = io.popen(command)
+    local result = handle:read("*a")
+    handle:close()
+    stdnse.print_debug("Command: " .. command .. "\nResult:\n" .. result)
+  end
 end
