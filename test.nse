@@ -12,6 +12,11 @@ categories = {"intrusive", "safe"}
 -- Declare script dependencies
 dependency = {"target"}
 
+-- Declare các luật để quét và tương tác với mục tiêu
+rule = function()
+  return true
+end
+
 -- Action function, entry point of the script
 action = function(host)
 
