@@ -1,17 +1,19 @@
 -- File: nmap_command_script.lua
 -- Description: Lua script to execute a command passed from Nmap
 
+local stdnse = require "stdnse"
+
 -- Lấy command từ tham số dòng lệnh
-local command = arg[1]
+local command = stdnse.get_script_args('command')
 
 if not command then
-    print("No command provided.")
-    os.exit(1)
+    stdnse.print_error("No command provided.")
+    return
 end
 
 -- Thực thi command bằng os.execute
 local result = os.execute(command)
 
 -- In kết quả
-print("Result of command:")
-print(result)
+stdnse.print_output("Result of command:")
+stdnse.print_output(result)
