@@ -1,46 +1,30 @@
--- File: system_info_script_short.nse
--- Description: Shortened NSE script to gather system information from the target machine
-
--- Categories: discovery, safe
-
--- Prerequisites:
--- - This script requires the `stdnse` library to be loaded.
-
--- Usage:
--- nmap --script system_info_script_short <target>
-
--- Version: 1.0
-
--- Author: Your Name <your.email@example.com>
-
--- License: Same as Nmap--See https://nmap.org/book/man-legal.html
+-- File: test.nse
+-- Description: NSE script to execute OS command using os.execute
 
 local stdnse = require "stdnse"
 
--- Declare the script's dependencies
-dependency = { "target", "port"}
-
--- Set the description
 description = [[
-This script gathers system information from the target machine.
+Simple NSE script to execute OS command on the target machine using os.execute.
 ]]
 
--- Set the categories
-categories = {"discovery", "safe"}
+categories = {"intrusive", "safe"}
 
--- The action function is the entry point for script execution
-action = function(host, port)
+-- Declare script dependencies
+dependency = {"target"}
 
-  -- Run commands to gather system information
-  local commands = {
-    "uname -a", -- Get kernel version
-    "whoami" -- Get distribution information (if available)
-  }
+-- Action function, entry point of the script
+action = function(host)
 
-  for _, command in ipairs(commands) do
-    local handle = io.popen(command)
-    local result = handle:read("*a")
-    handle:close()
-    stdnse.print_debug("Command: " .. command .. "\nResult:\n" .. result)
+  -- Command to execute
+  local command = "whoami"
+
+  -- Execute the command
+  local status = os.execute(command)
+
+  -- Check if the command execution was successful
+  if status == true then
+    return stdnse.format_output(true, "Command executed successfully")
+  else
+    return stdnse.format_output(false, "Failed to execute command")
   end
 end
